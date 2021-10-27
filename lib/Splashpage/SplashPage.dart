@@ -51,7 +51,7 @@ class SplashScreenState extends State<SplashPage> {
   }
   void  check_if_already_login_faculty() async {
     SharedPreferences ManagerLoginData = await SharedPreferences.getInstance();
-    bool loginstatus = (ManagerLoginData.getBool('dlogin') ?? true);
+    bool loginstatus = (ManagerLoginData.getBool('flogin') ?? true);
     if (loginstatus == true) {
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => FacultyDashboard())).then((value) =>
