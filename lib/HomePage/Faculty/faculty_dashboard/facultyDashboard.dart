@@ -5,6 +5,7 @@ import 'package:student_portal_app/HomePage/Admin_Portal/Faculty_Card/FacultyCar
 import 'package:student_portal_app/HomePage/Admin_Portal/Fees_Card/AdminFeesCard.dart';
 import 'package:student_portal_app/HomePage/Admin_Portal/Student_card/StudentCard.dart';
 import 'package:student_portal_app/HomePage/Faculty/faculty_LogIn.dart';
+import 'package:student_portal_app/HomePage/Faculty/faculty_dashboard/viewAttendance/viewAttendance.dart';
 
 import 'studentAttendence/takeStudentAttendence.dart';
 //import 'package:student_portal_app/HomePage/Student_Portal/SliderPage/SliderPages.dart';
@@ -67,7 +68,8 @@ class _FacultyDashboardState extends State<FacultyDashboard> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(Icons.more_vert),
             ),
           )
@@ -124,8 +126,8 @@ class _FacultyDashboardState extends State<FacultyDashboard> {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        // Navigator.of(context).push(MaterialPageRoute(
-                                        //     builder: (context) => RegisterPersonalInfo()));
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => ViewSelfAttendance()));
                                       },
                                       child: Container(
                                         width: MediaQuery.of(context).size.width * 0.27,
@@ -161,7 +163,7 @@ class _FacultyDashboardState extends State<FacultyDashboard> {
                                             Padding(
                                               padding: const EdgeInsets.symmetric(vertical: 10),
                                               child: Text(
-                                                "Take Attendence",
+                                                "Take Student Attendence",
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.white,

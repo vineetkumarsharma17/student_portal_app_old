@@ -30,7 +30,11 @@ dependencies:
   carousel_slider: ^4.0.0
   otp_text_field: ^1.1.1
   vertical_tabs: ^0.2.0
-
+  device_info: ^2.0.2
+  firebase_messaging: ^10.0.0
+  firebase_core: ^1.7.0
+  flutter_local_notifications: ^5.0.0+4
+  table_calendar: ^3.0.3
   flutter:
     sdk: flutter
 

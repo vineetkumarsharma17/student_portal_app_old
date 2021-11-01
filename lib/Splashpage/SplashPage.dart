@@ -10,7 +10,6 @@ class SplashPage extends StatefulWidget {
   @override
   SplashScreenState createState() => SplashScreenState();
 }
-
 class SplashScreenState extends State<SplashPage> {
   @override
   void initState() {
@@ -18,7 +17,8 @@ class SplashScreenState extends State<SplashPage> {
     Timer(
         Duration(seconds: 2),
         () {
-          check_if_already_login_faculty();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardPage()));
+          // check_if_already_login_faculty();
 
     });
             // context, MaterialPageRoute(builder: (context) => DirectorLogIn())));
@@ -51,7 +51,7 @@ class SplashScreenState extends State<SplashPage> {
   }
   void  check_if_already_login_faculty() async {
     SharedPreferences ManagerLoginData = await SharedPreferences.getInstance();
-    bool loginstatus = (ManagerLoginData.getBool('flogin') ?? true);
+    bool loginstatus = await ManagerLoginData.getBool('flogin')??false;
     if (loginstatus == true) {
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => FacultyDashboard())).then((value) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_portal_app/HomePage/Admin_Portal/Fees_Card/PEndingFee/pendingFee.dart';
 import 'package:student_portal_app/HomePage/Admin_Portal/Fees_Card/Submit_fees/SubmitFeesInfo.dart';
 import 'package:student_portal_app/HomePage/Admin_Portal/Fees_Card/upload_Expenses_Request/upload_expenses_request.dart';
 
@@ -168,6 +169,46 @@ class _AdminFeesCardSlabState extends State<AdminFeesCardSlab> {
                                     padding: const EdgeInsets.symmetric(vertical: 10),
                                     child: Text(
                                       "Upload Expense Request",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (builder) => StudentPendingFee()));
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.27,
+                              child: Column(
+                                children: [
+                                  Icon(Icons.school_rounded),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      "Pending\nFee",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,

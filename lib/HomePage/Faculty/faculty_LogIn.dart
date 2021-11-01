@@ -1,20 +1,29 @@
+
+import 'dart:io';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_portal_app/HomePage/Faculty/faculty_dashboard/facultyDashboard.dart';
-
+import 'package:student_portal_app/component/alertdilog.dart';
 class FacultyLogIn extends StatefulWidget {
   FacultyLogIn({Key? key}) : super(key: key);
-
   @override
   _FacultyLogInState createState() => _FacultyLogInState();
 }
 class _FacultyLogInState extends State<FacultyLogIn> {
   void initState(){
     super.initState();
-    check_if_already_login();
+    initPlatformState();
   }
+  String ?token;
+  String deviceName="";
+  String deviceVersion="";
+  String deviceIdentifier="";
+  String deviceOs="";
+  String deviceToken = "";
   bool isloading = false;
   String error = "";
   var obj;
@@ -34,21 +43,25 @@ class _FacultyLogInState extends State<FacultyLogIn> {
         error = "";
         isloading = true;
       });
-
       // Store all data with Param Name.
       print("Username:" + _usernameController.text);
       print("password:" + _passwordController.text);
-
       var data = {
         "username": _usernameController.text,
-        "password": _passwordController.text
+        "password": _passwordController.text,
+        "device_name": deviceName,
+        "device_ver": deviceVersion,
+        "device_id": deviceIdentifier,
+        "device_os": deviceOs,
+        "device_token":token
       };
       // Starting App API Call.
       var response = await http.post(
           Uri.parse(
               "http://sniic.co.in/admin/school_app/login/faculty_login_verification.php"),
-          body: json.encode(data));
-
+          body: json.encode(data)).catchError((e){
+            showMyDialog("Error", e.toString(), context);
+      });
       // Getting Server response into variable.
       setState(() {
         obj = jsonDecode(response.body);
@@ -75,14 +88,6 @@ class _FacultyLogInState extends State<FacultyLogIn> {
       }
     }
   }
-  void  check_if_already_login() async {
-    Facultylogindata = await SharedPreferences.getInstance();
-    loginstatus = (Facultylogindata.getBool('flogin') ?? true);
-    if (loginstatus == true) {
-      Navigator.pushReplacement(
-          context, new MaterialPageRoute(builder: (context) => FacultyDashboard()));
-    }
-  }
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -90,7 +95,6 @@ class _FacultyLogInState extends State<FacultyLogIn> {
     _passwordController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +139,7 @@ class _FacultyLogInState extends State<FacultyLogIn> {
                             vertical: 30,
                           ),
                           child: Text(
-                            "Welcome To SNITC",
+                            "Welcome To SNIIC",
                             style: TextStyle(
                                 color: Color(0xFF5A5858),
                                 fontSize: 20,
@@ -176,6 +180,7 @@ class _FacultyLogInState extends State<FacultyLogIn> {
                         child: TextFormField(
                           controller: _passwordController,
                           //maxLength: 10,
+                          obscureText: true,
                           //keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             icon: Icon(
@@ -267,5 +272,49 @@ class _FacultyLogInState extends State<FacultyLogIn> {
         ),
       ),
     );
+  }
+  Future<void> initPlatformState() async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+     token=preferences.getString("MobileToken");
+    // showMyDialog("Token", token.toString(), context);
+    // print("+++++++++++++++++++++++++");
+    final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        // getAxisDirectionFromAxisReverseAndDirectionality(await deviceInfoPlugin.androidInfo);
+        getAndroidDeviceInfo(await deviceInfoPlugin.androidInfo);
+      } else if (Platform.isIOS) {
+        getIOSDeviceInfo(await deviceInfoPlugin.iosInfo);
+      }
+    } on PlatformException {
+      // deviceData = <String, dynamic>{
+      // 'Error:': 'Failed to get platform version.'
+    };
+
+  }
+
+  void getAndroidDeviceInfo(AndroidDeviceInfo build)
+  {
+    print("Android");
+    deviceOs="Android";
+    deviceName = build.model.toString();
+    deviceVersion = build.version.release.toString();
+    deviceIdentifier = build.androidId.toString();
+
+    print("Device Name:"+deviceName);
+    print("Device Version:"+deviceVersion);
+    print("Device ID:"+deviceIdentifier);
+  }
+
+  void getIOSDeviceInfo(IosDeviceInfo data)
+  {
+    print("IOS");
+    deviceOs="IOS";
+    deviceName = data.name.toString();
+    deviceVersion = data.systemVersion.toString();
+    deviceIdentifier = data.identifierForVendor.toString();
+    print("Device Name:"+deviceName);
+    print("Device Version:"+deviceVersion);
+    print("Device ID:"+deviceIdentifier);
   }
 }

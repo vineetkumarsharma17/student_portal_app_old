@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "595175084863",
+    "project_id": "collageapp-58409",
+    "storage_bucket": "collageapp-58409.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595175084863:android:3fe0b6f40385c73138798a",
+        "android_client_info": {
+          "package_name": "com.example.student_portal_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595175084863-3c5vonurceo8qh8t7ln3cdca4sd2ki7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiRePm-pjgTxLAzzLuGqkv7ZAnR8npwVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595175084863-3c5vonurceo8qh8t7ln3cdca4sd2ki7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

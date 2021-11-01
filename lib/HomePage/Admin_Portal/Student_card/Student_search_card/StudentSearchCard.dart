@@ -184,7 +184,7 @@ class _StudentSearchDetailsState extends State<StudentSearchDetails> {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              !isLoading?Container(
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
@@ -251,7 +251,7 @@ class _StudentSearchDetailsState extends State<StudentSearchDetails> {
                     );
                   },
                 ),
-              ),
+              ):CircularProgressIndicator(),
             ],
           ),
         ),
